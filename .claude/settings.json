@@ -94,7 +94,11 @@
       "PowerShell(php -r \"require 'vendor/autoload.php'; `$app = require 'bootstrap/app.php'; `$app->make\\(Illuminate\\\\Contracts\\\\Console\\\\Kernel::class\\)->bootstrap\\(\\); `$f='resources/views/livewire/report/turnaround-time.blade.php'; `$tmp=sys_get_temp_dir\\(\\).'/bld_tat.php'; file_put_contents\\(`$tmp, Illuminate\\\\Support\\\\Facades\\\\Blade::compileString\\(file_get_contents\\(`$f\\)\\)\\); echo trim\\(shell_exec\\('php -l '.escapeshellarg\\(`$tmp\\).' 2>&1'\\)\\).PHP_EOL; unlink\\(`$tmp\\);\")",
       "PowerShell(php artisan tinker --execute=\"App\\\\Models\\\\Action::orderBy\\('id'\\)->get\\(['id','name']\\)->each\\(fn\\(`$a\\) => print\\(`$a->id.' => '.`$a->name.PHP_EOL\\)\\);\")",
       "PowerShell(php artisan tinker --execute=\"require 'C:\\\\Users\\\\DOH\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-DOH-Herd-DTISV2\\\\e3cdb66b-8bef-4cce-90ac-5512fa5d4ea5\\\\scratchpad\\\\trace_tat.php';\")",
-      "PowerShell(php artisan tinker --execute=\"require 'C:\\\\Users\\\\DOH\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-DOH-Herd-DTISV2\\\\e3cdb66b-8bef-4cce-90ac-5512fa5d4ea5\\\\scratchpad\\\\run_walk.php';\")"
+      "PowerShell(php artisan tinker --execute=\"require 'C:\\\\Users\\\\DOH\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-DOH-Herd-DTISV2\\\\e3cdb66b-8bef-4cce-90ac-5512fa5d4ea5\\\\scratchpad\\\\run_walk.php';\")",
+      "PowerShell(php artisan tinker --execute=\"require 'C:\\\\Users\\\\DOH\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-DOH-Herd-DTISV2\\\\e3cdb66b-8bef-4cce-90ac-5512fa5d4ea5\\\\scratchpad\\\\origin_gap.php';\")",
+      "PowerShell(php -l \"c:\\\\Users\\\\DOH\\\\Herd\\\\DTISV2\\\\app\\\\Livewire\\\\Status\\\\Incoming.php\")",
+      "PowerShell(php -l \"c:\\\\Users\\\\DOH\\\\Herd\\\\DTISV2\\\\app\\\\Livewire\\\\Views\\\\IncomingDetail.php\")",
+      "PowerShell(git -C \"c:\\\\Users\\\\DOH\\\\Herd\\\\DTISV2\" diff --stat)"
     ]
   }
 }
