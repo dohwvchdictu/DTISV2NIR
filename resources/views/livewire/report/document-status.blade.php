@@ -45,13 +45,15 @@
             <!-- End Header Grid -->
 
             <!-- Grid -->
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {{-- Five stat cards, always on a single row. The icon is dropped and the
+                 figures step down on narrow viewports so the row never wraps. --}}
+            <div class="grid grid-cols-5 gap-2 sm:gap-3 xl:gap-6">
                 <!-- Card -->
                 <div
                     class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
-                    <div class="p-4 md:p-5 flex gap-x-4">
+                    <div class="p-3 xl:p-5 flex gap-x-2 xl:gap-x-4">
                         <div
-                            class="shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
+                            class="hidden xl:flex shrink-0 justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
                             <svg class="shrink-0 size-5 text-gray-600 dark:text-neutral-400"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -65,8 +67,8 @@
 
                         <div class="grow">
                             <div class="flex items-center gap-x-2">
-                                <p class="text-xs uppercase tracking-wide text-amber-500 dark:text-neutral-500">
-                                    For Receiving
+                                <p class="text-xs uppercase tracking-wide text-sky-600 dark:text-sky-400">
+                                    Received
                                 </p>
                                 <div class="hs-tooltip">
                                     <div class="hs-tooltip-toggle">
@@ -81,19 +83,15 @@
                                         <span
                                             class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700"
                                             role="tooltip">
-                                            The number of documents for receiving and returned.
+                                            The number of documents offices took in during this period. This is
+                                            the basis of the completion rate.
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-1 flex items-center gap-x-2">
-                                <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                                    {{ number_format(
-                                        $incoming = \App\Models\Document::whereIn('status', ['For Receiving', 'Returned'])->whereBetween('created_at', [
-                                                \Carbon\Carbon::parse($this->startDate)->addDay(1),
-                                                \Carbon\Carbon::parse($this->endDate)->addDay(1),
-                                            ])->count(),
-                                    ) }}
+                                <h3 class="text-base sm:text-lg xl:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+                                    {{ number_format($totals['received']) }}
                                 </h3>
                             </div>
                         </div>
@@ -104,9 +102,9 @@
                 <!-- Card -->
                 <div
                     class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
-                    <div class="p-4 md:p-5 flex gap-x-4">
+                    <div class="p-3 xl:p-5 flex gap-x-2 xl:gap-x-4">
                         <div
-                            class="shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
+                            class="hidden xl:flex shrink-0 justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
                             <svg class="shrink-0 size-5 text-gray-600 dark:text-neutral-400"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -120,7 +118,7 @@
 
                         <div class="grow">
                             <div class="flex items-center gap-x-2">
-                                <p class="text-xs uppercase tracking-wide text-red-500 dark:text-neutral-500">
+                                <p class="text-xs uppercase tracking-wide text-red-600 dark:text-red-400">
                                     Pending
                                 </p>
                                 <div class="hs-tooltip">
@@ -142,13 +140,8 @@
                                 </div>
                             </div>
                             <div class="mt-1 flex items-center gap-x-2">
-                                <h3 class="text-xl font-medium text-gray-800 dark:text-neutral-200">
-                                    {{ number_format(
-                                        $pending = \App\Models\Document::whereBetween('created_at', [
-                                            \Carbon\Carbon::parse($this->startDate)->addDay(1),
-                                            \Carbon\Carbon::parse($this->endDate)->addDay(1),
-                                        ])->whereIn('status', ['On Process'])->count(),
-                                    ) }}
+                                <h3 class="text-base sm:text-lg xl:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+                                    {{ number_format($totals['pending']) }}
                                 </h3>
                             </div>
                         </div>
@@ -159,9 +152,9 @@
                 <!-- Card -->
                 <div
                     class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
-                    <div class="p-4 md:p-5 flex gap-x-4">
+                    <div class="p-3 xl:p-5 flex gap-x-2 xl:gap-x-4">
                         <div
-                            class="shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
+                            class="hidden xl:flex shrink-0 justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
                             <svg class="shrink-0 size-5 text-gray-600 dark:text-neutral-400"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -176,8 +169,8 @@
 
                         <div class="grow">
                             <div class="flex items-center gap-x-2">
-                                <p class="text-xs uppercase tracking-wide text-emerald-500 dark:text-neutral-500">
-                                    Processed
+                                <p class="text-xs uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
+                                    Completed
                                 </p>
                                 <div class="hs-tooltip">
                                     <div class="hs-tooltip-toggle">
@@ -192,19 +185,15 @@
                                         <span
                                             class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700"
                                             role="tooltip">
-                                            The number of documents processed (Forwarded & Closed) by your office.
+                                            Of the documents received in this period, how many the office has
+                                            since finished — forwarded onward or closed.
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-1 flex items-center gap-x-2">
-                                <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
-                                    {{ number_format(
-                                        $processed = \App\Models\Log::whereIn('action_id', [3, 5])->whereBetween('created_at', [
-                                                \Carbon\Carbon::parse($this->startDate)->addDay(1),
-                                                \Carbon\Carbon::parse($this->endDate)->addDay(1),
-                                            ])->count(),
-                                    ) }}
+                                <h3 class="text-base sm:text-lg xl:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+                                    {{ number_format($totals['completed']) }}
                                 </h3>
                             </div>
                         </div>
@@ -215,9 +204,57 @@
                 <!-- Card -->
                 <div
                     class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
-                    <div class="p-4 md:p-5 flex gap-x-4">
+                    <div class="p-3 xl:p-5 flex gap-x-2 xl:gap-x-4">
                         <div
-                            class="shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
+                            class="hidden xl:flex shrink-0 justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
+                            <svg class="shrink-0 size-5 text-gray-600 dark:text-neutral-400"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-clock-alert">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 15 14" />
+                            </svg>
+                        </div>
+
+                        <div class="grow">
+                            <div class="flex items-center gap-x-2">
+                                <p class="text-xs uppercase tracking-wide text-orange-600 dark:text-orange-400">
+                                    Overdue
+                                </p>
+                                <div class="hs-tooltip">
+                                    <div class="hs-tooltip-toggle">
+                                        <svg class="shrink-0 size-4 text-gray-500 dark:text-neutral-500"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                            <path d="M12 17h.01" />
+                                        </svg>
+                                        <span
+                                            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700"
+                                            role="tooltip">
+                                            Pending documents held by the same office for more than 3 business days.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-1 flex items-center gap-x-2">
+                                <h3 class="text-base sm:text-lg xl:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+                                    {{ number_format($totals['overdue']) }}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Card -->
+
+                <!-- Card -->
+                <div
+                    class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
+                    <div class="p-3 xl:p-5 flex gap-x-2 xl:gap-x-4">
+                        <div
+                            class="hidden xl:flex shrink-0 justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-neutral-800">
                             <svg class="shrink-0 size-5 text-gray-500 dark:text-neutral-500"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -231,8 +268,8 @@
 
                         <div class="grow">
                             <div class="flex items-center gap-x-2">
-                                <p class="text-xs uppercase tracking-wide text-sky-500 dark:text-neutral-500">
-                                    Acted Upon
+                                <p class="text-xs uppercase tracking-wide text-gray-600 dark:text-neutral-300">
+                                    Completion Rate
                                 </p>
                                 <div class="hs-tooltip">
                                     <div class="hs-tooltip-toggle">
@@ -247,15 +284,15 @@
                                         <span
                                             class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700"
                                             role="tooltip">
-                                            The percent of documents acted upon by your office.
+                                            The share of received documents that offices finished — Completed
+                                            divided by Received.
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-1 flex items-center gap-x-2">
-                                <h3 class="text-xl font-medium text-gray-800 dark:text-neutral-200">
-                                    {{ number_format($this->documentsPercentage($incoming, $pending, $processed), 2) }}
-                                    %
+                                <h3 class="text-base sm:text-lg xl:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+                                    {{ $totals['rate'] === null ? '—' : number_format($totals['rate'], 2) . '%' }}
                                 </h3>
                             </div>
                         </div>
@@ -333,7 +370,7 @@
                                 <thead class="bg-gray-50 dark:bg-neutral-800">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-start">
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-500 dark:focus:text-neutral-500"
+                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-white dark:focus:text-white"
                                                 href="#">
                                                 Office
                                                 <svg class="shrink-0 size-3.5 text-gray-800 dark:text-neutral-200"
@@ -347,21 +384,7 @@
                                         </th>
 
                                         <th scope="col" class="px-6 py-3 text-start">
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-amber-500 hover:text-amber-400 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-500 dark:focus:text-neutral-500"
-                                                href="#">
-                                                Incoming
-                                                <svg class="shrink-0 size-3.5 text-gray-800 dark:text-neutral-200"
-                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="m7 15 5 5 5-5" />
-                                                    <path d="m7 9 5-5 5 5" />
-                                                </svg>
-                                            </a>
-                                        </th>
-
-                                        <th scope="col" class="px-6 py-3 text-start">
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-red-500 hover:text-red-400 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-500 dark:focus:text-neutral-500"
+                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-red-500 hover:text-red-400 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-white dark:focus:text-white"
                                                 href="#">
                                                 Pending
                                                 <svg class="shrink-0 size-3.5 text-gray-800 dark:text-neutral-200"
@@ -375,9 +398,9 @@
                                         </th>
 
                                         <th scope="col" class="px-6 py-3 text-start">
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-emerald-500 hover:text-emerald-400 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-500 dark:focus:text-neutral-500"
+                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-emerald-500 hover:text-emerald-400 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-white dark:focus:text-white"
                                                 href="#">
-                                                Processed
+                                                Completed
                                                 <svg class="shrink-0 size-3.5 text-gray-800 dark:text-neutral-200"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -389,9 +412,23 @@
                                         </th>
 
                                         <th scope="col" class="px-6 py-3 text-start">
-                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-neutral-500 dark:focus:text-neutral-500"
+                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-orange-500 hover:text-orange-400 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-white dark:focus:text-white"
                                                 href="#">
-                                                Percentage
+                                                Overdue
+                                                <svg class="shrink-0 size-3.5 text-gray-800 dark:text-neutral-200"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="m7 15 5 5 5-5" />
+                                                    <path d="m7 9 5-5 5 5" />
+                                                </svg>
+                                            </a>
+                                        </th>
+
+                                        <th scope="col" class="px-6 py-3 text-start">
+                                            <a class="group inline-flex items-center gap-x-2 text-xs font-semibold uppercase text-gray-800 hover:text-gray-500 focus:outline-none focus:text-gray-500 dark:text-neutral-200 dark:hover:text-white dark:focus:text-white"
+                                                href="#">
+                                                Completion Rate
                                                 <svg class="shrink-0 size-3.5 text-gray-800 dark:text-neutral-200"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -418,37 +455,39 @@
                                             </td>
                                             <td class="size-px whitespace-nowrap">
                                                 <span class="block relative z-10">
-                                                    <div class="px-6 text-amber-600 flex gap-x-1">
-                                                        {{ number_format($incoming = ($incomingByOffice[$office['id']] ?? 0)) }}
+                                                    <div class="px-6 flex text-red-600 dark:text-red-400 gap-x-1">
+                                                        {{ number_format($pendingByOffice[$office['id']] ?? 0) }}
                                                     </div>
                                                 </span>
                                             </td>
                                             <td class="size-px whitespace-nowrap">
                                                 <span class="block relative z-10">
-                                                    <div class="px-6 flex text-red-600 gap-x-1">
-                                                        {{ number_format($pending = ($pendingByOffice[$office['id']] ?? 0)) }}
+                                                    <div class="px-6 flex text-emerald-600 dark:text-emerald-400 gap-x-1">
+                                                        {{ number_format($completed = ($completedByOffice[$office['id']] ?? 0)) }}
                                                     </div>
                                                 </span>
                                             </td>
                                             <td class="size-px whitespace-nowrap">
                                                 <span class="block relative z-10">
-                                                    <div class="px-6 flex text-emerald-600 gap-x-1">
-                                                        {{ number_format($processed = ($processedByOffice[$office['id']] ?? 0)) }}
+                                                    <div class="px-6 flex gap-x-1 {{ ($overdue = $overdueByOffice[$office['id']] ?? 0) > 0 ? 'font-semibold text-orange-600 dark:text-orange-400' : 'text-gray-400 dark:text-neutral-500' }}">
+                                                        {{ number_format($overdue) }}
                                                     </div>
                                                 </span>
                                             </td>
                                             <td class="size-px whitespace-nowrap">
                                                 <span class="block relative z-10">
-                                                    <div class="px-6 flex gap-x-1">
-                                                        {{ number_format($this->documentsPercentage($incoming, $pending, $processed), 2) }}
-                                                        %
+                                                    <div class="px-6 flex gap-x-1 text-gray-800 dark:text-neutral-200">
+                                                        @php
+                                                            $rate = $this->completionRate($receivedByOffice[$office['id']] ?? 0, $completed);
+                                                        @endphp
+                                                        {{ $rate === null ? '—' : number_format($rate, 2) . '%' }}
                                                     </div>
                                                 </span>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td class="text-center py-5 font-bold text-lg text-gray-800 dark:text-neutral-200" colspan="6">No records
+                                            <td class="text-center py-5 font-bold text-lg text-gray-800 dark:text-neutral-200" colspan="5">No records
                                                 found!
                                             </td>
                                         </tr>
