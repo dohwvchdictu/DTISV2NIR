@@ -191,13 +191,13 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-title">Pending</div>
-                    <div class="card-value">{{ number_format($reportData['overall']['pending']) }}</div>
+                    <div class="card-title">Completed</div>
+                    <div class="card-value">{{ number_format($reportData['overall']['completed']) }}</div>
                 </div>
 
                 <div class="card">
-                    <div class="card-title">Completed</div>
-                    <div class="card-value">{{ number_format($reportData['overall']['completed']) }}</div>
+                    <div class="card-title">Pending</div>
+                    <div class="card-value">{{ number_format($reportData['overall']['pending']) }}</div>
                 </div>
 
                 <div class="card">
@@ -221,8 +221,9 @@
                 <thead>
                     <tr>
                         <th>Office</th>
-                        <th class="text-center">Pending</th>
+                        <th class="text-center">Received</th>
                         <th class="text-center">Completed</th>
+                        <th class="text-center">Pending</th>
                         <th class="text-center">Overdue</th>
                         <th class="text-center">Completion Rate</th>
                     </tr>
@@ -231,8 +232,9 @@
                     @foreach($reportData['offices'] as $officeData)
                     <tr>
                         <td>{{ $officeData['office']['officeName'] }}</td>
-                        <td class="text-center">{{ number_format($officeData['pending']) }}</td>
+                        <td class="text-center">{{ number_format($officeData['received']) }}</td>
                         <td class="text-center">{{ number_format($officeData['completed']) }}</td>
+                        <td class="text-center">{{ number_format($officeData['pending']) }}</td>
                         <td class="text-center">{{ number_format($officeData['overdue']) }}</td>
                         <td class="text-center">{{ $officeData['rate'] === null ? '—' : number_format($officeData['rate'], 2) . '%' }}</td>
                     </tr>
